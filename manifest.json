@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "ClauseMap — Summarise T&Cs",
+  "version": "0.1.0",
+  "description": "On-click summariser for Terms & Conditions and Privacy Policies.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["https://*/", "http://*/"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "summarize-page": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y"
+      },
+      "description": "Summarise current page"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["ui.css"],
+      "matches": ["https://*/*", "http://*/*"]
+    }
+  ]
+}

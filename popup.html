@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 380px;
+        min-height: 200px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #333;
+        overflow: hidden;
+      }
+
+      .container {
+        padding: 24px;
+        background: white;
+        margin: 8px;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .logo {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #9b6aff, #8a5ae8);
+        border-radius: 12px;
+        margin: 0 auto 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: white;
+        font-weight: bold;
+      }
+
+      .title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 4px;
+      }
+
+      .subtitle {
+        font-size: 14px;
+        color: #718096;
+      }
+
+      .button-container {
+        margin: 20px 0;
+      }
+
+      button {
+        width: 100%;
+        padding: 16px 24px;
+        background: linear-gradient(135deg, #9b6aff, #8a5ae8);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(155, 106, 255, 0.3);
+      }
+
+      button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(155, 106, 255, 0.4);
+      }
+
+      button:active:not(:disabled) {
+        transform: translateY(0);
+      }
+
+      button:disabled {
+        background: #e2e8f0;
+        color: #a0aec0;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .loading {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top: 2px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      #status {
+        margin-top: 16px;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-size: 14px;
+        text-align: center;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .status-default {
+        background: #f7fafc;
+        color: #4a5568;
+        border: 1px solid #e2e8f0;
+      }
+
+      .status-loading {
+        background: #ebf8ff;
+        color: #2b6cb0;
+        border: 1px solid #bee3f8;
+      }
+
+      .status-success {
+        background: #f0fff4;
+        color: #2f855a;
+        border: 1px solid #c6f6d5;
+      }
+
+      .status-error {
+        background: #fed7d7;
+        color: #c53030;
+        border: 1px solid #feb2b2;
+      }
+
+      .features {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .feature {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        font-size: 13px;
+        color: #718096;
+      }
+
+      .feature-icon {
+        width: 16px;
+        height: 16px;
+        background: #9b6aff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 10px;
+        font-weight: bold;
+      }
+
+      .shortcut {
+        text-align: center;
+        margin-top: 12px;
+        font-size: 12px;
+        color: #a0aec0;
+        background: #f7fafc;
+        padding: 8px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="logo">📋</div>
+        <div class="title">ClauseMap</div>
+        <div class="subtitle">AI-Powered Legal Analysis</div>
+      </div>
+
+      <div class="button-container">
+        <button id="summarizeBtn">
+          <span class="button-text">Analyze This Page</span>
+          <span class="loading">
+            <div class="spinner"></div>
+            <span>Analyzing...</span>
+          </span>
+        </button>
+      </div>
+
+      <div id="status" class="status-default">
+        Ready to analyze Terms & Conditions
+      </div>
+
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">🤖</div>
+          <span>AI-powered analysis</span>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <span>Instant risk assessment</span>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔍</div>
+          <span>Smart text extraction</span>
+        </div>
+      </div>
+
+      <div class="shortcut">Press <kbd>Ctrl+Shift+Y</kbd> for quick access</div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
